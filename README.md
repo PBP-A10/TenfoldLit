@@ -21,7 +21,8 @@ Berikut ini beberapa fitur yang disediakan pada situs TenFoldIt:
 
 ### 👤 Login Page (Halaman Login):
 * Halaman login yang memungkinkan pengguna masuk ke akun mereka.
-* Halaman registrasi bagi pengguna yang belum memiliki akun
+* Halaman registrasi bagi pengguna yang belum memiliki akun.
+* Pada halaman registrasi pengguna akan diminta untuk memilih _books catagories favorite_ mereka.
 
 ### 🔎 Search and Filters (Pencarian dan Filter):
 * Halaman pencarian yang menampilkan hasil pencarian buku berdasarkan kata kunci, judul, penulis, atau kategori.
@@ -39,8 +40,11 @@ Berikut ini beberapa fitur yang disediakan pada situs TenFoldIt:
 * Form untuk pengguna memberikan ulasan dan peringkat pada buku.
 
 ### 📒 My Books (User Own Library):
-* Halaman untuk menampilkan buku yang dipinjam oleh user
-* Halaman untuk menampilkan buku yang di favorite oleh user
+* Halaman User Library untuk menampilkan buku yang dipinjam oleh user.
+* Halaman User Favorite untuk menampilkan buku yang di favorite oleh user
+
+## 📂 Sumber Dataset:
+https://www.kaggle.com/datasets/mdhamani/goodreads-books-100k
 
 ## 👩🏻👱🏻‍♂️ Role atau peran pengguna beserta deskripsinya: 
 * Admin
