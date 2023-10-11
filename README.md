@@ -7,7 +7,7 @@
 * [Caressa Putri Yuliantoro](https://github.com/caressaputri) (2206081742)
 * [Muhammad Nabiel Subhan](https://github.com/nabielsubhan) (2206081553)
 
-## 📔 Latar Belakang TenFoldIt 📔 :
+## 📔 Latar Belakang TenfoldLit 📔 :
 Gita adalah seorang anak yang sangat mencintai dunia literatur. Ia sering menghabiskan waktu di perpustakaan sekolahnya, membaca buku-buku berbagai genre, dan selalu mencari rekomendasi buku baru. Namun, Gita merasa kesulitan untuk menemukan ulasan buku yang akurat dan komentar dari para pembaca yang dapat membantu dalam memilih buku untuk dibaca. Itulah sampai akhirnya dia menemukan TenfoldLit, sebuah web aplikasi Django yang menyediakan semua yang ia butuhkan. <br>
 
 TenfoldLit memungkinkan pengguna untuk melihat ulasan buku dari berbagai genre, serta membaca komentar dari pembaca lainnya. Gita dapat menjadi anggota dan memberikan review serta komentar, dan yang lebih penting, dia dapat memberikan rating kepada buku-buku yang telah dia baca. Ia juga senang bahwa web ini memungkinkan pengguna untuk meminjam buku, melihat stok buku, dan menyimpan buku favoritnya dalam daftar favorit sehingga ia mampu menyusun daftar bacaan selanjutnya dengan lebih mudah. Dengan TenfoldLit, Gita merasa lebih terhubung dengan komunitas pembaca yang sama-sama bersemangat tentang literatur, dan pengalaman membacanya menjadi lebih menyenangkan.
