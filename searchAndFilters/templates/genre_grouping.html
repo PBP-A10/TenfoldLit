@@ -1,0 +1,11 @@
+<!-- genre_grouping.html -->
+<h1>Books Grouped by Genre</h1>
+
+{% for genre, books in grouped_books.items %}
+    <h2>{{ genre }}</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} by {{ book.author }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
