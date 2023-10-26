@@ -9,3 +9,7 @@ def get_books(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json", data),
                          content_type="application/json")
+
+def get_book_json(request):
+    books = Book.objects.all()
+    return HttpResponse(serializers.serialize('json', books))

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+{% for book in books %}  
+        <p>{{ book }}</p>  
+        <a href="{% url 'myLibrary:borrow_books' book.pk %}">
+                <button>
+                    Borrow
+                </button>
+            </a>
+    
+{% endfor %}
+
+<script>
+async function getBooks() {
+            return fetch("{% url 'main:get_books' %}").then((res) => res.json())
+        }
+
+async function refreshProducts() {
+        const books = await getBooks()
+        console.log(books)
+}
+
+refreshProducts()
+
+
+</script>
+
+{% endblock content %}

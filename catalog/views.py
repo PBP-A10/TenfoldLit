@@ -1,15 +1,17 @@
 from django.shortcuts import render, redirect
-from catalog.models import Book, UserFavorite, UserReview
+from catalog.models import UserFavorite, UserReview
+from main.models import Book
 from catalog.forms import UserReviewForm
 
 def book_list(request):
     books = Book.objects.all()
-    return render(request, 'catalog/book_list.html', {'books': books})
+    return render(request, 'book_list.html', {'books': books})
+
 
 def my_library(request):
     user_favorites = UserFavorite.objects.filter(user=request.user)
     books = [favorite.book for favorite in user_favorites]
-    return render(request, 'catalog/my_library.html', {'books': books})
+    return render(request, 'my_library.html', {'books': books})
 
 def mark_as_favorite(request, book_id):
     book = Book.objects.get(pk=book_id)
@@ -19,7 +21,7 @@ def mark_as_favorite(request, book_id):
 def book_reviews(request, book_id):
     book = Book.objects.get(pk=book_id)
     reviews = UserReview.objects.filter(book=book)
-    return render(request, 'catalog/book_reviews.html', {'book': book, 'reviews': reviews})
+    return render(request, 'book_reviews.html', {'book': book, 'reviews': reviews})
 
 def add_review(request, book_id):
     book = Book.objects.get(pk=book_id)
@@ -35,4 +37,4 @@ def add_review(request, book_id):
     else:
         form = UserReviewForm()
 
-    return render(request, 'catalog/add_review.html', {'book': book, 'form': form})
+    return render(request, 'add_review.html', {'book': book, 'form': form})
