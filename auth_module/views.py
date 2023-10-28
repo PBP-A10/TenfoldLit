@@ -3,17 +3,22 @@ from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
+from auth_module.forms import RegisterUserForm
 
 # Create your views here.
 def register(request):
-    form = UserCreationForm()
+    form = RegisterUserForm()
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
             messages.success(request, 'Your account has been successfully created!')
-            return redirect('auth_module:login')
+            return redirect('main:show_main')
     context = {'form':form}
     return render(request, 'register.html', context)
 

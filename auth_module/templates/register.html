@@ -7,25 +7,37 @@
 
 {% block content %}
 
-<div class="h-100 d-flex align-items-center justify-content-center" style="margin-top: 100px;">
-    <form method="POST">  
-        {% csrf_token %}  
-        <table style="justify-items: center;">  
-            {{ form.as_table }}  
-            <tr>  
-                <td></td>
-                <td><input type="submit" name="submit" value="Daftar" class="btn" style="background-color: #C7986C;"></td>  
-            </tr>  
-        </table>  
-    </form>
-
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 m-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {{ field.label }}
+                            {{ field }}
+                        {% endfor %}
+                        <div class="text-center">
+                            <input type="submit" name="submit" value="Daftar" class="btn" style="background-color: #C7986C;">
+                        </div>
+                    </form>
+                    {% if messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <ul>
+                                {% for message in messages %}
+                                    <li>
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}
