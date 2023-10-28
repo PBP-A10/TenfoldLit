@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+<<<<<<< HEAD
     'auth_module',
 <<<<<<< HEAD
     'friends',
@@ -45,6 +46,9 @@ INSTALLED_APPS = [
     'myLibrary',
     'catalog',
 >>>>>>> myLibrary
+=======
+    'searchAndFilters',
+>>>>>>> searchAndFilters
 ]
 
 MIDDLEWARE = [
