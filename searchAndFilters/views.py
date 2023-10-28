@@ -1,35 +1,29 @@
 from django.shortcuts import render
+from main.models import Book
+from django.http import HttpResponse
+from django.core import serializers
 from django.db.models import Q
-from django.views.generic import ListView
 
-from main import models
-from .models import Filters
+def genre_grouping(request):
+    books = Book.objects.all()
+    genres = set([genre.strip() for book in books for genre in book.genre.split(',')])
+    grouped_books = {}
 
-class BookSortView(ListView):
-    model = Filters
-    template_name = 'bookstore/book_list.html'
-    context_object_name = 'books'
+    for genre in genres:
+        grouped_books[genre] = books.filter(genre__icontains=genre)
 
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        order = self.request.GET.get('order')
+    return render(request, 'genre_grouping.html', {'grouped_books': grouped_books})
 
-        if query:
-            # Search by title, genre, and writers
-            queryset = Filters.objects.filter(
-                Q(title__icontains=query) | 
-                Q(genre__icontains=query) | 
-                Q(writers__icontains=query)
-            )
-            queryset.update(search_count=models.F('search_count') + 1)
-        else:
-            queryset = Filters.objects.all()
+def get_filtered_books(request, genre):
+    books = Book.objects.filter(genre__icontains=genre)
+    data = serializers.serialize('json', books)
+    return HttpResponse(data, content_type='application/json')
 
-        if order == 'rating':
-            queryset = queryset.order_by('-rating')
-        elif order == 'newest':
-            queryset = queryset.order_by('id') 
-        elif order == 'most_search':
-            queryset = queryset.order_by('-search_count')
+def get_search_books(request, search_query):
+    books = Book.objects.filter(Q(title__icontains=search_query) | Q(author__icontains=search_query))
+    data = serializers.serialize('json', books)
+    return HttpResponse(data, content_type='application/json')
 
-        return queryset
+def search_books(request):
+    book = Book.objects.all()
+    return render(request, 'genre_grouping.html', {'books' : book})

@@ -1,6 +1,6 @@
 from django.db import models
 
-class Filters(models.Model):
+class Books(models.Model):
     title = models.CharField(max_length=255)
     genre = models.CharField(max_length=100)
     writers = models.CharField(max_length=255)

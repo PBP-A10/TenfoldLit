@@ -1,11 +1,89 @@
+<!DOCTYPE html>
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
 <!-- genre_grouping.html -->
 <h1>Books Grouped by Genre</h1>
 
-{% for genre, books in grouped_books.items %}
-    <h2>{{ genre }}</h2>
-    <ul>
-        {% for book in books %}
-            <li>{{ book.title }} by {{ book.author }}</li>
+<div id="genre-dropdown">
+    <!-- Create a dropdown for selecting a genre -->
+    <select id="genre-select" onchange="showBooks()">
+        <option value="">Select a Genre</option>
+        {% for genre, books in grouped_books.items %}
+            <option value="{{ genre }}">{{ genre }}</option>
         {% endfor %}
-    </ul>
-{% endfor %}
+    </select>
+</div>
+
+<div id="search-bar">
+    <input type="text" id="search-input" placeholder="Search by title or author">
+    <button onclick="searchBooks()">Search</button>
+</div>
+
+<div id="book-list">
+    <!-- Display books based on the selected genre here -->
+</div>
+
+<script>
+    async function getBooks(genre) {
+        return fetch("/searchAndFilters/get_filtered_books/" + genre)
+            .then((response) => response.json())
+            .then((data) => data);
+    }
+
+    async function getSearchBooks(searchQuery) {
+        return fetch("/searchAndFilters/get_search_books/" + searchQuery)
+            .then((response) => response.json())
+            .then((data) => data);
+    }
+
+    async function searchBooks(){
+        var searchQuery = document.getElementById("search-input").value;
+        var bookList = document.getElementById("book-list");
+        bookList.innerHTML = ""; // Clear the book list
+        console.log(searchQuery)
+
+        if (searchQuery) {
+            var search= await getSearchBooks(searchQuery);
+            console.log(search)
+
+            if (search.length > 0) {
+            var bookListHTML = "<ul>";
+            search.forEach(function (book) {
+                bookListHTML += "<li>" + book.fields.title + " by " + book.fields.author + "</li>";
+            });
+            bookListHTML += "</ul>";
+            bookList.innerHTML = bookListHTML;
+            } else {
+                bookList.textContent = "No books found for the search query: " + searchQuery;
+            }
+        }
+    }
+
+
+    async function showBooks() {
+        var selectedGenre = document.getElementById("genre-select").value;
+        var bookList = document.getElementById("book-list");
+        bookList.innerHTML = ""; // Clear the book list
+
+        if (selectedGenre) {
+            var books = await getBooks(selectedGenre);
+            if (books.length > 0) {
+                var bookListHTML = "<ul>";
+                books.forEach(function(book) {
+                    bookListHTML += "<li>" + book.fields.title + " by " + book.fields.author + "</li>";
+                });
+                bookListHTML += "</ul>";
+                bookList.innerHTML = bookListHTML;
+            } else {
+                bookList.textContent = "No books found for the selected genre.";
+            }
+        }
+    }
+    
+</script>
+
+{% endblock content %}

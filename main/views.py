@@ -1,12 +1,67 @@
 from django.shortcuts import render
-from .models import Book
+from django.http import HttpResponse
+from django.core import serializers
+from main.models import Book
+from unicodedata import name
+from django.shortcuts import redirect, render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
+import requests
 
-def genre_grouping(request):
-    books = Book.objects.all()
-    genres = set([genre.strip() for book in books for genre in book.genre.split(',')])
-    grouped_books = {}
 
-    for genre in genres:
-        grouped_books[genre] = books.filter(genre__icontains=genre)
+# Create your views here.
+def get_books(request):
+    data = Book.objects.all()
+    return HttpResponse(serializers.serialize("json", data),
+                         content_type="application/json")
 
-    return render(request, 'genre_grouping.html', {'grouped_books': grouped_books})
+def Home(request):
+    return render(request, 'index.html')
+
+def Register(request):
+    if request.method =='POST' :
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if password1 != password2 :
+            messages.error(request, 'Passwords salah! Coba Lagi!')
+            return redirect('Register')
+        
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username sudah digunakan!')
+            return redirect('Register')
+        
+        if User.objects.filter(email=email).exists():
+            messages.error(requests,'Email sudah digunakan!')
+            return redirect('Register')
+        
+        user = User.objects.create_user(username=username, email=email)
+        user.set_password(password1)
+        user.save()
+
+        messages.success(request, 'Registrasi berhasil!')
+        return redirect('Register')
+    
+    return render(request, 'Register.html')
+
+def Login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username = username)
+
+def Logout(request):
+    logout(request)
+    messages.sucess(request, 'Berhasil Log Out')
+     
+    return redirect('index.html')
+
+#def Recomendation(request): 
+    
+
