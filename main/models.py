@@ -15,3 +15,4 @@ class Book(models.Model):
     rating = models.FloatField(null=True, blank=True)
     reviews = models.IntegerField(null=True, blank=True)
     totalratings = models.IntegerField(null=True, blank=True)
+    user_avg_rating = models.FloatField(null=True, blank=True) 
