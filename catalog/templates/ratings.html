@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Peringkat Buku</title>
+</head>
+<body>
+    <h1>Peringkat Buku</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            <a href="{% url 'catalog:book_reviews' book.id %}">{{ book.title }}</a>
+            <p>Rating: {{ review.rating }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
