@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Favorit Saya</title>
+</head>
+<body>
+    <h1>Favorit Saya</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            <a href="{% url 'book_reviews' book.id %}">{{ book.title }}</a>
+            <button class="remove-favorite-button" data-bookid="{{ book.id }}">Hapus dari Favorit</button>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

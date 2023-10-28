@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Katalog Buku</title>
+</head>
+<body>
+    <h1>Katalog Buku</h1>
+    <ul>
+        {% for book in books %}
+        <li>
+            <a href="{% url 'catalog:book_reviews' book.id %}">{{ book.title }}</a>
+            <p>Rating: {{ book.rating }}</p>
+            <button class="favorite-button" data-bookid="{{ book.id }}">Tambah ke Favorit</button>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        // Menggunakan jQuery untuk menangani permintaan AJAX
+        $(document).ready(function() {
+            $(".favorite-button").click(function() {
+                var bookId = $(this).data("bookid");
+                var button = $(this);
+                var url = "{% url 'catalog:mark_as_favorite' 0 %}".replace('0', bookId);
+
+                // Kirim permintaan AJAX untuk menambah atau menghapus dari favorit
+                $.ajax({
+                    url: url,
+                    method: "POST",
+                    data: { 'csrfmiddlewaretoken': "{{ csrf_token }}" },
+                    success: function(data) {
+                        // Periksa respons dari server
+                        if (data.is_favorite) {
+                            button.text("Unfavorite");
+                        } else {
+                            button.text("Tambah ke Favorit");
+                        }
+                    },
+                    error: function(error) {
+                        console.log("Gagal mengirim permintaan.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
