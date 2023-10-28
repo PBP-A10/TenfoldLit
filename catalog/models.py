@@ -17,8 +17,12 @@ class Book(models.Model):
     reviews = models.IntegerField(null=True, blank=True)
     totalratings = models.IntegerField(null=True, blank=True)
 
-class BorrowedBooks(models.Model):
+class UserFavorite(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    date_borrowed = models.DateField(auto_now_add=False)
-    date_ended = models.DateField(auto_now_add=False)
+
+class UserReview(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    rating = models.PositiveIntegerField()
+    comment = models.TextField()

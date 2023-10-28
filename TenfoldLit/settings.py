@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'auth_module',
+<<<<<<< HEAD
     'friends',
+=======
+    'myLibrary',
+    'catalog',
+>>>>>>> myLibrary
 ]
 
 MIDDLEWARE = [
