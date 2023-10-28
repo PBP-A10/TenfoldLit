@@ -1,0 +1,46 @@
+
+<!-- genre_grouping.html -->
+<h1>Books Grouped by Genre</h1>
+
+<div id="genre-dropdown">
+    <!-- Create a dropdown for selecting a genre -->
+    <select id="genre-select" onchange="showBooks()">
+        <option value="">Select a Genre</option>
+        {% for genre, books in grouped_books.items %}
+            <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div id="book-list">
+    <!-- Display books based on the selected genre here -->
+</div>
+
+<script>
+    async function getBooks(genre) {
+        return fetch("/get_filtered_books/" + genre)
+            .then((response) => response.json())
+            .then((data) => data);
+    }
+
+    async function showBooks() {
+        var selectedGenre = document.getElementById("genre-select").value;
+        var bookList = document.getElementById("book-list");
+        bookList.innerHTML = ""; // Clear the book list
+
+        if (selectedGenre) {
+            var books = await getBooks(selectedGenre);
+            if (books.length > 0) {
+                var bookListHTML = "<ul>";
+                books.forEach(function(book) {
+                    bookListHTML += "<li>" + book.fields.title + "</li>";
+                });
+                bookListHTML += "</ul>";
+                bookList.innerHTML = bookListHTML;
+            } else {
+                bookList.textContent = "No books found for the selected genre.";
+            }
+        }
+    }
+    
+</script>

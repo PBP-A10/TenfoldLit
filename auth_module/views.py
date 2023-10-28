@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
+from django.urls import reverse
 
 # Create your views here.
 def register(request):
@@ -24,7 +25,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('main:show_main')
+            return redirect('catalog:book_list')
         else:
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}

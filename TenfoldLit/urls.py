@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
     path('', include('auth_module.urls')),
-    path('', include('catalog.urls')),
-    path('', include('myLibrary.urls')),
+    path('myLibrary/', include('myLibrary.urls')),
+    path('', include('searchAndFilters.urls')),
+    path('catalog/', include(('catalog.urls', 'catalog'), namespace='catalog')),
 ]

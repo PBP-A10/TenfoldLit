@@ -7,7 +7,6 @@ def book_list(request):
     books = Book.objects.all()
     return render(request, 'book_list.html', {'books': books})
 
-
 def my_library(request):
     user_favorites = UserFavorite.objects.filter(user=request.user)
     books = [favorite.book for favorite in user_favorites]

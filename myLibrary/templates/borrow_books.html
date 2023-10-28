@@ -5,7 +5,7 @@
 <form method="POST">
     {% csrf_token %}
     <table>
-        {{ form.as_table }}
+        {{ form.as_p }}
         <tr>
             <td></td>
             <td>
@@ -15,4 +15,27 @@
     </table>
 </form>
 
+<!-- Modal -->
+<div class="modal fade" id="borrowModal" tabindex="-1" aria-labelledby="borrowModalLabel" aria-hidden="true" style="background-color: rgba(0, 0, 0, 0.1);">
+    <div class="modal-dialog">
+        <div class="modal-content border-minecraft" style="border-radius: 0;">
+            <div class="modal-header border-minecraft" style="border-radius: 0;">
+                <h1 class="modal-title fs-5" id="borrowModalLabel">Borrow Book</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body border-minecraft" style="border-radius: 0;">
+                <form id="borrow-form" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="book_id" value="{{ book.id }}">
+                </form>
+            </div>
+            <div class="modal-footer border-minecraft" style="border-radius: 0;">
+                <button type="button" class="button-minecraft" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="button-minecraft" form="borrow-form">Borrow Book</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal -->
+<button type="button" class="button-minecraft mx-auto d-block mb-2" style="width: 10rem;" data-bs-toggle="modal" data-bs-target="#borrowModal">Add Product by AJAX</button>
 {% endblock %}

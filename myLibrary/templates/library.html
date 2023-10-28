@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+<h1>Borrowed Books</h1>
+
+<div id="borrowed-list">
+
+</div>
+
+<script>
+var borrowedBooks = ""
+const borrowedList = document.getElementById("borrowed-list")
+
+async function getBooks() {
+            return fetch("/myLibrary/get-borrowed-books/").then((res) => res.json())
+        }
+
+async function refreshProducts() {
+        const books = await getBooks()
+        borrowedList.innerHTML = ''
+        borrowedBooks = ""
+        console.log(books)
+        books.forEach((book) => {
+        borrowedBooks +=`
+        <p>${book.title}</p>
+        <button onclick="returnBook(${book.id});">Return Book</button>
+        `;})
+
+        borrowedList.innerHTML = borrowedBooks
+
+}
+
+refreshProducts()
+
+
+function returnBook(bookId){
+    fetch("/myLibrary/return-book/"+bookId, {
+        method: "DELETE"
+    })
+    .then(refreshProducts);
+}
+
+</script>
+
+{% endblock content %}
