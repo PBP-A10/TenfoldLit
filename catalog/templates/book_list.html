@@ -9,7 +9,7 @@
         {% for book in books %}
         <li>
             <a href="{% url 'catalog:book_reviews' book.id %}">{{ book.title }}</a>
-            <p>Rating: {{ book.rating }}</p>
+            <p>Rating: {{ review.rating }}</p>
             <button class="favorite-button" data-bookid="{{ book.id }}">Tambah ke Favorit</button>
         </li>
         {% endfor %}
