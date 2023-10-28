@@ -20,13 +20,10 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
-<<<<<<< HEAD
     path('auth/', include('django.contrib.auth.urls')),
     path('friends/', include('friends.urls')),
     path('', include('auth_module.urls')),
     path('', include('catalog.urls')),
     path('', include('myLibrary.urls')),
-=======
     path('searchAndFilters/', include('searchAndFilters.urls'))
->>>>>>> searchAndFilters
 ]
