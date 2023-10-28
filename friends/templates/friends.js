@@ -88,11 +88,12 @@ async function refreshFriends() {
             //fetch buku yang lagi dibaca user
             //fetch buku yang difavoritin user
 
-            //loop tiap buku si user, trus ubah konten cardnya
+            //loop tiap buku yang lagi dibaca si user, trus ubah konten cardnya
             const bookCard = bookCardTemplate.content.cloneNode(true).children[0]
             const bookImg = bookCard.querySelector("[book-img]")
             const bookTitle = bookCard.querySelector("[book-title]")
             
+            //loop tiap buku yang difavoritin si user, trus ubah konten cardnya
 
             seeProfileButton.addEventListener("click", function () {
                 new bootstrap.modal(profile).show()
