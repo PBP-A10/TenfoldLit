@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block meta %}
+    <title>Friends</title>
+    <meta charset="UTF-8">
+{% endblock meta %}
+
+{% block content %}
+    <nav class="navbar navbar-expand justify-content-center">
+        <h1>Friends</h1>
+    </nav>
+
+    <div class="container-fluid">
+        <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search"></i> Search friend</button>
+    </div>
+
+    <div class="container-fluid" main-container ></div>
+    
+    <!-- User-Search Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <form class="d-flex w-100" role="search">                     
+                        <input class="form-control me-2 w-100" type="search" placeholder="Search" aria-label="Search" data-search>
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+                <div class="modal-body" users-card-container></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friend-Card Modal -->
+    <template friend-profile-modal>
+        <div class="modal fade" id="seeProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel" friend-profile-name ></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div friend-favorite ></div>
+                        <div friend-current-read-book ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <!-- User-Card Template -->
+    <template user-card-template>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" user-name></h5>
+                <button type="button" class="btn btn-primary" follow-followed-button ></button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Friend-Card Template -->
+    <template friend-card-template>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title" friend-name></h5>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#seeProfile" see-profile-button>See Profile</button>                  
+                <button type="button" class="btn btn-danger" unfollow-button >Unfollow</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Book-Card Template -->
+    <template book-card-template>
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="..." book-img>
+            <div class="card-body">
+              <h5 class="card-title" book-title>Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            </div>
+          </div>
+    </template>
+
+    <script>
+        var currentUser = {
+            username: "{{ current_user.username }}"
+        };
+    </script>
+    <!-- Include your separate JavaScript file. -->
+    <script src="{% static 'friends.js' %}"></script>
+
+
+{% endblock %}
