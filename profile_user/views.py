@@ -10,9 +10,11 @@ def get_user_data(request):
         "email": user.email,
         "username": user.username,  # Add the username field
     }
-    return JsonResponse(user_data)
+    if request.method == 'GET':
+        return render(request, 'profile.html', context=user_data)
+    else:
+        return JsonResponse(user_data)
 
-@login_required
 def update_profile(request):
     if request.method == 'POST':
         username = request.POST.get('username')

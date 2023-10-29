@@ -18,12 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('main/', include('main.urls')),
+    path('admin/', admin.site.urls),
     path('', include('auth_module.urls')),
     path('', include('myLibrary.urls')),
     path('', include('searchAndFilters.urls')),
     path('profile_user/', include('profile_user.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
     path('friends/', include('friends.urls')),
     path('', include('catalog.urls')),
 ]
