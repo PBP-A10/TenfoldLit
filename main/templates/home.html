@@ -1,0 +1,19 @@
+{% extends 'homepage.html' %}
+
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block main-content %}
+<div class="header-content" style="position: relative; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background-color: peachpuff; font-family: 'Times New Roman', Times, serif;">
+  <h1>Welcome!</h1>
+  <h3>Find your favourite books here!</h3>
+  <a href="/book_list/">
+    <button>Start Reading</button></a>
+  <ul id="bookList" style="display: none;"></ul>
+</div> 
+
+
+{% endblock main-content %}
+
+
+

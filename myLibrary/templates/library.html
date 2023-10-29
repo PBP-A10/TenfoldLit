@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+<h1>Borrowed Books</h1>
+
+<div id="borrowed-list">
+
+</div>
+
+
+
+<script>
+const borrowedList = document.getElementById("borrowed-list")
+// const favoriteList = document.getElementById("favorite-list")
+
+async function getBooks() {
+    return fetch("/get-borrowed-books/").then((res) => res.json())
+        }
+
+async function getFavorite() {
+    return fetch("/my_favorites/").then((res) => res.json())
+}
+
+async function refreshProducts() {
+        const books = await getBooks()
+        // const favoriteBooks = await getFavorite()
+
+        // console.log(favoriteBooks)
+
+        borrowedList.innerHTML = ""
+        var borrowedBooks = `
+        <div class="container">
+        <div class="row">`
+
+        // favoriteList.innerHTML = ''
+        // var favoriteBooksHTML = ""
+        const currentDate = new Date();
+
+        books.forEach((book) => {
+            const endDate = new Date(book.date_ended);
+            const isExpired = endDate < currentDate;
+            const titleClass = isExpired ? 'expired-book' : '';
+
+            borrowedBooks += `
+            <div class="col-md-4 mb-3">
+                <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="${book.book_image}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.title}</h5>
+                        <p class="card-text">Expired: ${book.date_ended}</p>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#returnModal${book.id}">Kembalikan Buku</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--Return Modal-->
+            <div class="modal fade" tabindex="-1" role="dialog" id="returnModal${book.id}">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title">Borrow Book</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <!-- Your form goes here -->       
+                        <div class="form-group">
+                        <form id="form">
+                                {% csrf_token %} 
+                                <label for="date_ended">Apakah terdapat kerusakan pada buku?</label>
+                                <label for="yes">Yes</label>
+                                <input type="radio" id="yes" name="choice" value="true">
+                                <label for="no">No</label>
+                                <input type="radio" id="no" name="choice" value="false">
+                        </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer id-parent">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" onclick="returnBook(${book.id});" class="btn btn-primary borrow" id="borrow-button" data-bs-dismiss="modal">Submit</button>
+                    </div>
+                </div>
+                </div>
+                </div>
+            </div>
+
+            <!--End Return Modal-->
+            `;})
+
+        borrowedList.innerHTML = borrowedBooks + `</div></div>`
+        console.log(borrowedList.innerHTML)
+
+}
+
+refreshProducts()
+
+var damaged;
+function returnBook(bookId){
+    const yesRadio = document.getElementById("yes");
+    const noRadio = document.getElementById("no");
+    if (yesRadio.checked) {
+        fetch("/return-book/"+bookId, {
+        method: "DELETE"
+        })
+        .then(refreshProducts);
+    } else if (noRadio.checked) {
+        fetch("/return-damaged-book/"+bookId, {
+        method: "DELETE"
+        })
+        .then(refreshProducts);
+    }
+}
+
+</script>
+
+{% endblock content %}

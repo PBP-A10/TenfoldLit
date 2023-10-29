@@ -43,6 +43,11 @@ Berikut ini beberapa fitur yang disediakan pada situs TenFoldIt:
 * Halaman User Library untuk menampilkan buku yang dipinjam oleh user.
 * Halaman User Favorite untuk menampilkan buku yang di favorite oleh user
 
+### Friends:
+* Halaman untuk untuk menampilkan friends yang dimiliki oleh user.
+* Berfungsi untuk membuat hubungan dengan user lain sehingga bisa melihat buku favorit dan buku yang sedang dipinjam oleh user tersebut.
+* Dapat mencari nama suatu user untuk mem-follow mereka.
+
 ## 📂 Sumber Dataset:
 https://www.kaggle.com/datasets/mdhamani/goodreads-books-100k
 

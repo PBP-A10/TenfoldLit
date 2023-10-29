@@ -1,0 +1,79 @@
+{% extends 'base.html' %} 
+{% load static %}
+<!DOCTYPE html>
+{% block meta %}
+
+{% endblock meta %}
+
+{% block content %}
+
+<!-- genre_grouping.html -->
+<div class="navbar">
+    <h1>Books Grouped by Genre</h1>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search by title or author">
+        <button onclick="searchBooks()">Search</button>
+    </div>
+</div>
+
+<div id="genre-dropdown">
+    <!-- Create a dropdown for selecting a genre -->
+    <select id="genre-select" onchange="showBooks()">
+        <option value="">Select a Genre</option>
+        {% for genre, books in grouped_books.items %}
+            <option value="{{ genre }}">{{ genre }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div id="book-list">
+    <!-- Display books based on the selected genre here -->
+</div>
+
+<script src="{% static 'genre_grouping.js' %}"></script>
+
+<style>
+    /* Add your CSS styles here */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #131a3e;
+        color: #fff;
+        padding: 10px;
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-bar input {
+        width: 200px;
+        padding: 5px;
+        margin-right: 10px;
+    }
+
+    .search-bar button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    #genre-select {
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8fcff;
+        color: #333;
+        font-size: 14px;
+        margin-top: 30px;
+    }
+
+    .content {
+        /* Add content styles here */
+    }
+</style>
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Register</title>
+
+{% endblock meta %}
+
+{% block content %}
+
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-12 col-sm-8 col-md-6 m-auto">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {{ field.label }}
+                            {{ field }}
+                        {% endfor %}
+                        <div class="text-center">
+                            <input type="submit" name="submit" value="Daftar" class="btn" style="background-color: #C7986C;">
+                        </div>
+                    </form>
+                    {% if messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <ul>
+                                {% for message in messages %}
+                                    <li>
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
