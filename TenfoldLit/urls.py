@@ -22,10 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('main.urls')),
     path('auth/', include('django.contrib.auth.urls')),
-    path('friends/', include('friends.urls')),
+    path('', include('friends.urls')),
     path('', include('auth_module.urls')),
     path('', include('myLibrary.urls')),
-    path('searchAndFilters/', include('searchAndFilters.urls'))
-    path('profile_user/', include('profile_user.urls')),
+    path('', include('searchAndFilters.urls')),
+    path('', include('profile_user.urls')),
     path('', include('catalog.urls')),
 ]

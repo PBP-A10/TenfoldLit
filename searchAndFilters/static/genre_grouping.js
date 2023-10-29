@@ -1,11 +1,11 @@
 async function getBooks(genre) {
-    return fetch("/searchAndFilters/get_filtered_books/" + genre)
+    return fetch("/get_filtered_books/" + genre)
         .then((response) => response.json())
         .then((data) => data);
 }
 
 async function getSearchBooks(searchQuery) {
-    return fetch("/searchAndFilters/get_search_books/" + searchQuery)
+    return fetch("/get_search_books/" + searchQuery)
         .then((response) => response.json())
         .then((data) => data);
 }
@@ -114,7 +114,7 @@ async function showBooks() {
             var title = document.createElement("h5");
             title.classList.add("card-title");
             var titleLink = document.createElement("a");
-            titleLink.href = `/catalog/book_reviews/${book.id}/`;
+            titleLink.href = `/book_reviews/${book.pk}/`;
             titleLink.textContent = book.fields.title;
             title.appendChild(titleLink);
         
@@ -134,6 +134,9 @@ async function showBooks() {
             button.classList.add("btn", "btn-primary", "favorite-button");
             button.dataset.bookid = book.id;
             button.textContent = "Tambah ke Favorit";
+            var favLink = document.createElement("a");
+            favLink.href = `/mark_as_favorite/${book.pk}/`;
+            button.appendChild(favLink);
         
             cardBody.appendChild(title);
             cardBody.appendChild(rating);

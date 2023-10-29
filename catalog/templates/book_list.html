@@ -12,31 +12,22 @@
 </head>
 <body>
         <nav class="navbar navbar-expand-lg bg-blue">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#">TenFoldLit</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                      <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'myLibrary:show_library' %}">myLibrary</a>
-                      </li>
-                      <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Browse
-                        </a>
-                        <div class="dropdown-menu">
-                            <ul class="list-unstyled">
-                                {% for code, name in GENRE_CHOICES %}
-                                    <li><a class="dropdown-item" href="{% url 'books' code %}">{{ name }}</a></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/main/">TenFoldLit</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'myLibrary:show_library' %}">myLibrary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/my_favorites/">myFavorites</a>
+                    </li>
+                </ul>
                 </div>
+            </div>
         </nav>
 
         <div class="container">
@@ -59,8 +50,8 @@
 
     
     <script>
-        // Menggunakan jQuery untuk menangani permintaan AJAX
-        $(document).ready(function() {
+         // Menggunakan jQuery untuk menangani permintaan AJAX
+         $(document).ready(function() {
             $(".favorite-button").click(function() {
                 var bookId = $(this).data("bookid");
                 var button = $(this);

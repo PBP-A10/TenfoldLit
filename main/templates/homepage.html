@@ -30,22 +30,16 @@
               <li>
                 <a class="nav-link active" aria-current="page" href="/search/">Search</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Browse
-                </a>
-                <div class="dropdown-menu">
-                    <ul class="list-unstyled">
-                        {% for code, name in GENRE_CHOICES %}
-                            <li><a class="dropdown-item" href="{% url 'books' code %}">{{ name }}</a></li>
-                        {% endfor %}
-                    </ul>
-                </div>
-              </li>
             </ul>
           </div>
 
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item mx-2">
+              <a href="/profile_user/" class="nav-link text-black">Profile</a>
+            </li>
+            <li class="nav-item mx-2">
+              <a href="/view_friends/" class="nav-link text-black">Friends</a>
+            </li>
             <li class="nav-item mx-2">
               <a href="/login/" class="nav-link text-black">Login</a>
             </li>
