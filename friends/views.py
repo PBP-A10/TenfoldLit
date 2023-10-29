@@ -43,10 +43,12 @@ def get_all_user_connections(request):
     users_connections = UserConnections.objects.all()
     return HttpResponse(serializers.serialize("json", users_connections), content_type="aplication/json")
 
+@login_required
 def get_user(request, user_id):
     user = User.objects.filter(pk=user_id)
     return HttpResponse(serializers.serialize('json', user), content_type='application/json')
 
+@login_required
 def get_user_connections(request, user_id):
     user = UserConnections.objects.filter(pk=user_id)
     return HttpResponse(serializers.serialize('json', user), content_type='application/json')
