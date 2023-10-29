@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'main',
     'searchAndFilters',
     'profile_user',
+    'catalog',
 ]
 
 MIDDLEWARE = [
