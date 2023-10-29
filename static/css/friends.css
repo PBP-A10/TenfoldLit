@@ -1,0 +1,15 @@
+#search-button {
+    margin-left: 1%;
+}
+
+#friend-card {
+    max-width: 18rem;
+    display: inline-block;
+    margin: 1%;
+    width: 300px;
+}
+
+#user-card-container {
+    display: block;
+    margin-top: 5%;
+}

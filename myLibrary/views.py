@@ -76,3 +76,15 @@ def return_damaged_book(request, book_id):
             return HttpResponse("Deleted", status=204)
 
     return HttpResponse("Invalid request method", status=405)
+    context = {}
+    return render(request, 'borrow_books.html', context)
+
+@login_required(login_url='/login')
+def get_borrowed_books_user(request, user_id):
+    borrowed_books = BorrowedBooks.objects.filter(pk=user_id)
+    return HttpResponse(serializers.serialize("json", borrowed_books), content_type="application/json")
+
+@login_required(login_url='/login')
+def get_favorite_books_user(request, user_id):
+    favorite_books = UserFavorite.objects.filter(pk=user_id)
+    return HttpResponse(serializers.serialize("json", favorite_books), content_type="application/json")

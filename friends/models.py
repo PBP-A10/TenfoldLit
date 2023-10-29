@@ -15,3 +15,6 @@ class UserConnections(models.Model):
 
     def get_friends(self):
         return self.friends.all()
+    
+    def __str__(self):
+        return self.user.username

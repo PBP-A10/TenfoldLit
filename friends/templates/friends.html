@@ -12,8 +12,8 @@
         <h1>Friends</h1>
     </nav>
 
-    <div class="container-fluid">
-        <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search"></i> Search friend</button>
+    <div class="container-fluid" id="search-button">
+        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" id="open-search-modal"><i class="bi bi-search"></i> Search friend</button>
     </div>
 
     <div class="container-fluid" main-container ></div>
@@ -25,7 +25,6 @@
                 <div class="modal-header">
                     <form class="d-flex w-100" role="search">                     
                         <input class="form-control me-2 w-100" type="search" placeholder="Search" aria-label="Search" data-search>
-                        <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
                 <div class="modal-body" users-card-container></div>
@@ -34,26 +33,39 @@
     </div>
 
     <!-- Friend-Card Modal -->
-    <template friend-profile-modal>
-        <div class="modal fade" id="seeProfile" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel" friend-profile-name ></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="seeProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="profileName" friend-profile-name>Modal title</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div friend-favorite id="favorite-container"><strong>Favorites</strong>
+                    <div class="row">
+                        <div class="owl-carousel owl-theme" carousel-favorite>
+
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <div friend-favorite ></div>
-                        <div friend-current-read-book ></div>
+                </div>
+                <div friend-current-read-book id="borrowed-container"><strong>Borrowed</strong>
+                    <div class="row">
+                        <div class="owl-carousel owl-theme" carousel-borrowed>
+
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
-    </template>
+      </div>
     
     <!-- User-Card Template -->
     <template user-card-template>
-        <div class="card">
+        <div class="card" id="user-card-container">
             <div class="card-body">
                 <h5 class="card-title" user-name></h5>
                 <button type="button" class="btn btn-primary" follow-followed-button ></button>
@@ -63,33 +75,66 @@
 
     <!-- Friend-Card Template -->
     <template friend-card-template>
-        <div class="card">
+        <div class="card" id="friend-card">
             <div class="card-body">
                 <h5 class="card-title" friend-name></h5>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#seeProfile" see-profile-button>See Profile</button>                  
-                <button type="button" class="btn btn-danger" unfollow-button >Unfollow</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#seeProfile" see-profile-button>See Profile</button>                  
+                <button type="button" class="btn btn-outline-danger" unfollow-button >Unfollow</button>
             </div>
         </div>
     </template>
 
     <!-- Book-Card Template -->
     <template book-card-template>
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="..." book-img>
-            <div class="card-body">
-              <h5 class="card-title" book-title>Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <div class="item">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="..." book-img>
+                <div class="card-body">
+                <h5 class="card-title" book-title>Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
             </div>
-          </div>
+        </div>
     </template>
 
     <script>
         var currentUser = {
             username: "{{ current_user.username }}"
         };
+        const csrfToken = '{{ csrf_token }}'
+        const url_get_friends = "{% url 'friends:get_friends' %}"
+        const url_get_all_user_connections = "{% url 'friends:get_all_user_connections' %}"
+        const url_get_user = "{% url 'friends:get_user' user_id=1 %}"
+        const url_follow_friend = "{% url 'friends:follow_friend' friend_id=1 %}"
+        const url_get_user_connections = "{% url 'friends:get_user_connections' user_id=1 %}"
+        const url_unfollow_friend = "{% url 'friends:unfollow_friend' friend_id=1 %}"
+        const url_get_borrowed_books = "{% url 'myLibrary:get_borrowed_books_user' user_id=1 %}"
+        const url_get_favorite_books = "{% url 'myLibrary:get_favorite_books_user' user_id=1 %}"
     </script>
-    <!-- Include your separate JavaScript file. -->
-    <script src="{% static 'friends.js' %}"></script>
+    
+    <script src="{% static 'js/friends.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            margin:10,
+            nav:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        })
+    </script>
 
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/friends.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 {% endblock %}

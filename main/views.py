@@ -39,6 +39,20 @@ def get_books(request):
     return HttpResponse(serializers.serialize("json", data),
                          content_type="application/json")
 
+def get_book_json(request):
+    books = Book.objects.all()
+    return HttpResponse(serializers.serialize('json', books))
+
+@login_required(login_url='/login')
+def homepage(request):
+    if 'last_login' not in request.COOKIES.keys():
+        return redirect('auth_module:login')
+
+    context = {
+        'last_login': request.COOKIES['last_login'],
+    }
+
+    return render(request, "homepage.html", context)
 def home(request):
     return render(request, 'index.html')
 
