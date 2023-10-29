@@ -23,5 +23,5 @@ urlpatterns = [
     path('', include('auth_module.urls')),
     path('myLibrary/', include('myLibrary.urls')),
     path('', include('searchAndFilters.urls')),
-    path('catalog/', include(('catalog.urls', 'catalog'), namespace='catalog')),
+    path('', include('catalog.urls')),
 ]

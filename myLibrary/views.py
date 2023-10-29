@@ -27,7 +27,8 @@ def get_borrowed_boks(request):
         {
             'id': book.id,
             'title': book.book.title,
-            'date_ended': book.date_ended  # Format the date as a string
+            'date_ended': book.date_ended,  # Format the date as a string
+            'book_image': book.book.img
         }
         for book in borrowed_books
     ]
@@ -56,11 +57,22 @@ def borrow_books(request, book_id):
 @csrf_exempt
 def return_book(request, book_id):
     if request.method == 'DELETE':
-        try:
             book = BorrowedBooks.objects.get(pk=book_id)
             book.delete()
             return HttpResponse("Deleted", status=204)
-        except BorrowedBooks.DoesNotExist:
-            return HttpResponse("Borrowed book not found", status=404)
+
+    return HttpResponse("Invalid request method", status=405)
+
+@csrf_exempt    
+def return_damaged_book(request, book_id):
+    if request.method == 'DELETE':
+            borrowedBook = BorrowedBooks.objects.get(pk=book_id)
+            book = Book.objects.get(pk=book_id)
+            borrowedBook.delete()
+
+            book.status = True
+            book.save()
+
+            return HttpResponse("Deleted", status=204)
 
     return HttpResponse("Invalid request method", status=405)
