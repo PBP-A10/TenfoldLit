@@ -12,7 +12,10 @@ def book_list(request):
 def my_favorites(request):
     user_favorites = UserFavorite.objects.filter(user=request.user)
     books = [favorite.book for favorite in user_favorites]
-    return render(request, 'my_favorites.html', {'books': books})
+    return JsonResponse(books, safe=False)
+
+#  return render(request, 'my_favorites.html', {'books': books})
+
 
 def mark_as_favorite(request, book_id):
     book = Book.objects.get(pk=book_id)

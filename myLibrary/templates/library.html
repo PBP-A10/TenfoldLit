@@ -5,30 +5,54 @@
 {% endblock meta %}
 
 {% block content %}
+<h1>Your Favorites</h1>
+
+<div id="favorite-list">
+
+</div>
+
 <h1>Borrowed Books</h1>
 
 <div id="borrowed-list">
 
 </div>
 
+
+
 <script>
-var borrowedBooks = ""
 const borrowedList = document.getElementById("borrowed-list")
+const favoriteList = document.getElementById("favorite-list")
 
 async function getBooks() {
-            return fetch("/myLibrary/get-borrowed-books/").then((res) => res.json())
+    return fetch("/myLibrary/get-borrowed-books/").then((res) => res.json())
         }
+
+async function getFavorite() {
+    return fetch("/catalog/my_favorites/").then((res) => res.json())
+}
 
 async function refreshProducts() {
         const books = await getBooks()
+        const favoriteBooks = await getFavorite()
+
+        console.log(favoriteBooks)
+
         borrowedList.innerHTML = ''
-        borrowedBooks = ""
-        console.log(books)
+        var borrowedBooks = ""
+
+        favoriteList.innerHTML = ''
+        var favoriteBooksHTML = ""
+        const currentDate = new Date();
+
         books.forEach((book) => {
-        borrowedBooks +=`
-        <p>${book.title}</p>
-        <button onclick="returnBook(${book.id});">Return Book</button>
-        `;})
+            const endDate = new Date(book.date_ended);
+            const isExpired = endDate < currentDate;
+            const titleClass = isExpired ? 'expired-book' : '';
+
+            borrowedBooks += `
+            <p class="${titleClass}">${book.title} ${titleClass}</p>
+            <button onclick="returnBook(${book.id});">Return Book</button>
+            `;})
 
         borrowedList.innerHTML = borrowedBooks
 

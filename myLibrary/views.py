@@ -23,7 +23,14 @@ def show_library(request):
 
 def get_borrowed_boks(request):
     borrowed_books = BorrowedBooks.objects.filter(user=request.user)
-    serialized_books = [{'id': book.id, 'title': book.book.title} for book in borrowed_books]
+    serialized_books = [
+        {
+            'id': book.id,
+            'title': book.book.title,
+            'date_ended': book.date_ended  # Format the date as a string
+        }
+        for book in borrowed_books
+    ]
     return JsonResponse(serialized_books, safe=False)
 
 @csrf_exempt
