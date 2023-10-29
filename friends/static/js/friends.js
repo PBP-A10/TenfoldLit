@@ -7,8 +7,8 @@ const friendCardsContainer = document.querySelector("[main-container]")
 
 const bookCardTemplate = document.querySelector("[book-card-template]")
 
-const friendFavoriteContainer = document.querySelector("[carousel]")
-const friendCurrentReadBookContainer = document.querySelector("[friend-current-read-book]")
+const friendFavoriteContainer = document.querySelector("[carousel-favorite]")
+const friendCurrentReadBookContainer = document.querySelector("[carousel-borrowed]")
 const friendProfileName = document.querySelector("[friend-profile-name]")
 
 let users = []

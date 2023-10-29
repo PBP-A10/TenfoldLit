@@ -41,14 +41,20 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div friend-favorite >Favorites
+                <div friend-favorite id="favorite-container"><strong>Favorites</strong>
                     <div class="row">
-                        <div class="owl-carousel owl-theme" carousel>
+                        <div class="owl-carousel owl-theme" carousel-favorite>
 
                         </div>
                     </div>
                 </div>
-                <div friend-current-read-book >Borrowed</div>
+                <div friend-current-read-book id="borrowed-container"><strong>Borrowed</strong>
+                    <div class="row">
+                        <div class="owl-carousel owl-theme" carousel-borrowed>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
