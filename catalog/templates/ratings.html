@@ -18,11 +18,7 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">{{ forloop.counter }}. <a href="{% url 'catalog:book_reviews' book.id %}">{{ book.title }}</a></h5>
-                        {% if book.user_avg_rating %}
-                            <p class="card-text">Rating: {{ book.user_avg_rating }}</p>
-                        {% else %}
-                            <p class="card-text">Belum ada rating.</p>
-                        {% endif %}
+                        <p class="card-text">Rating: {{ book.rating }}</p>
                     </div>
                 </div>
             </div>

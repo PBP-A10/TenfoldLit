@@ -26,57 +26,57 @@ async function searchBooks() {
 
             search.forEach(function (book) {
             var col = document.createElement("div");
-    　　　    col.classList.add("col-md-4", "mb-3");
-    　　　
-    　　　    var card = document.createElement("div");
-    　　　    card.classList.add("card");
-    　　　
-    　　　    var img = document.createElement("img");
-    　　　    img.src = book.fields.img;
-    　　　    img.classList.add("card-img-top");
-    　　　    img.alt = book.fields.title + " Cover";
-    　　　
-    　　　    var cardBody = document.createElement("div");
-    　　　    cardBody.classList.add("card-body");
-    　　　
-    　　　    var title = document.createElement("h5");
-    　　　    title.classList.add("card-title");
-    　　　    var titleLink = document.createElement("a");
-    　　　    titleLink.href = `/catalog/book_reviews/${book.id}/`;
-    　　　    titleLink.textContent = book.fields.title;
-    　　　    title.appendChild(titleLink);
-    　　　
-    　　　    var rating = document.createElement("p");
-    　　　    rating.classList.add("card-text");
-    　　　    if (book.fields.user_avg_rating) {
-    　　　        rating.textContent = "Rating: " + book.fields.user_avg_rating;
-    　　　    } else {
-    　　　        rating.textContent = "Belum ada rating.";
-    　　　    }
-    　　　
-    　　　    var desc = document.createElement("p");
-    　　　    desc.classList.add("card-text");
-    　　　    desc.textContent = book.fields.desc;
-    　　　
-    　　　    var button = document.createElement("button");
-    　　　    button.classList.add("btn", "btn-primary", "favorite-button");
-    　　　    button.dataset.bookid = book.id;
-    　　　    button.textContent = "Tambah ke Favorit";
-    　　　
-    　　　    cardBody.appendChild(title);
-    　　　    cardBody.appendChild(rating);
-    　　　    cardBody.appendChild(desc);
-    　　　    cardBody.appendChild(button);
-    　　　
-    　　　    card.appendChild(img);
-    　　　    card.appendChild(cardBody);
-    　　　
-    　　　    col.appendChild(card);
-    　　　
-    　　　    container.appendChild(col);
-    　　　});
-    　　　
-    　　　bookList.appendChild(container);
+            col.classList.add("col-md-4", "mb-3");
+            
+            var card = document.createElement("div");
+            card.classList.add("card");
+    
+            var img = document.createElement("img");
+            img.src = book.fields.img;
+            img.classList.add("card-img-top");
+            img.alt = book.fields.title + " Cover";
+    
+            var cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+            
+            var title = document.createElement("h5");
+            title.classList.add("card-title");
+            var titleLink = document.createElement("a");
+            titleLink.href = `/catalog/book_reviews/${book.id}/`;
+            titleLink.textContent = book.fields.title;
+            title.appendChild(titleLink);
+
+            var rating = document.createElement("p");
+            rating.classList.add("card-text");
+            if (book.fields.user_avg_rating) {
+            rating.textContent = "Rating: " + book.fields.user_avg_rating;
+            } else {
+                rating.textContent = "Belum ada rating.";
+            }
+        
+            var desc = document.createElement("p");
+            desc.classList.add("card-text");
+            desc.textContent = book.fields.desc;
+        
+            var button = document.createElement("button");
+            button.classList.add("btn", "btn-primary", "favorite-button");
+            button.dataset.bookid = book.id;
+            button.textContent = "Tambah ke Favorit";
+        
+            cardBody.appendChild(title);
+            cardBody.appendChild(rating);
+            cardBody.appendChild(desc);
+            cardBody.appendChild(button);
+        
+            card.appendChild(img);
+            card.appendChild(cardBody);
+        
+            col.appendChild(card);
+        
+            container.appendChild(col);
+        });
+        
+        bookList.appendChild(container);
 
             } else {
                 bookList.textContent = "No books found for the search query: " + searchQuery;
@@ -97,58 +97,58 @@ async function showBooks() {
             container.classList.add("container");
 
             books.forEach(function (book) {
-    　　　    var col = document.createElement("div");
-    　　　    col.classList.add("col-md-4", "mb-3");
-    　　　
-    　　　    var card = document.createElement("div");
-    　　　    card.classList.add("card");
-    　　　
-    　　　    var img = document.createElement("img");
-    　　　    img.src = book.fields.img;
-    　　　    img.classList.add("card-img-top");
-    　　　    img.alt = book.fields.title + " Cover";
-    　　　
-    　　　    var cardBody = document.createElement("div");
-    　　　    cardBody.classList.add("card-body");
-    　　　
-    　　　    var title = document.createElement("h5");
-    　　　    title.classList.add("card-title");
-    　　　    var titleLink = document.createElement("a");
-    　　　    titleLink.href = `/catalog/book_reviews/${book.id}/`;
-    　　　    titleLink.textContent = book.fields.title;
-    　　　    title.appendChild(titleLink);
-    　　　
-    　　　    var rating = document.createElement("p");
-    　　　    rating.classList.add("card-text");
-    　　　    if (book.fields.user_avg_rating) {
-    　　　        rating.textContent = "Rating: " + book.fields.user_avg_rating;
-    　　　    } else {
-    　　　        rating.textContent = "Belum ada rating.";
-    　　　    }
-    　　　
-    　　　    var desc = document.createElement("p");
-    　　　    desc.classList.add("card-text");
-    　　　    desc.textContent = book.fields.desc;
-    　　　
-    　　　    var button = document.createElement("button");
-    　　　    button.classList.add("btn", "btn-primary", "favorite-button");
-    　　　    button.dataset.bookid = book.id;
-    　　　    button.textContent = "Tambah ke Favorit";
-    　　　
-    　　　    cardBody.appendChild(title);
-    　　　    cardBody.appendChild(rating);
-    　　　    cardBody.appendChild(desc);
-    　　　    cardBody.appendChild(button);
-    　　　
-    　　　    card.appendChild(img);
-    　　　    card.appendChild(cardBody);
-    　　　
-    　　　    col.appendChild(card);
-    　　　
-    　　　    container.appendChild(col);
-    　　　});
-    　　　
-    　　　bookList.appendChild(container);
+            var col = document.createElement("div");
+            col.classList.add("col-md-4", "mb-3");
+        
+            var card = document.createElement("div");
+            card.classList.add("card");
+        
+            var img = document.createElement("img");
+            img.src = book.fields.img;
+            img.classList.add("card-img-top");
+            img.alt = book.fields.title + " Cover";
+        
+            var cardBody = document.createElement("div");
+            cardBody.classList.add("card-body");
+        
+            var title = document.createElement("h5");
+            title.classList.add("card-title");
+            var titleLink = document.createElement("a");
+            titleLink.href = `/catalog/book_reviews/${book.id}/`;
+            titleLink.textContent = book.fields.title;
+            title.appendChild(titleLink);
+        
+            var rating = document.createElement("p");
+            rating.classList.add("card-text");
+            if (book.fields.user_avg_rating) {
+                rating.textContent = "Rating: " + book.fields.user_avg_rating;
+            } else {
+                rating.textContent = "Belum ada rating.";
+            }
+        
+            var desc = document.createElement("p");
+            desc.classList.add("card-text");
+            desc.textContent = book.fields.desc;
+        
+            var button = document.createElement("button");
+            button.classList.add("btn", "btn-primary", "favorite-button");
+            button.dataset.bookid = book.id;
+            button.textContent = "Tambah ke Favorit";
+        
+            cardBody.appendChild(title);
+            cardBody.appendChild(rating);
+            cardBody.appendChild(desc);
+            cardBody.appendChild(button);
+        
+            card.appendChild(img);
+            card.appendChild(cardBody);
+    
+            col.appendChild(card);
+    
+            container.appendChild(col);
+        });
+
+        bookList.appendChild(container);
         } else {
             bookList.textContent = "No books found for the selected genre.";
         }

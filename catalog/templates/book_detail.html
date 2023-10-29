@@ -23,7 +23,7 @@
                 <p class="card-text">Genre: {{ book.genre }}</p>
                 <p class="card-text">ISBN: {{ book.isbn }}</p>
                 <p class="card-text">Halaman: {{ book.pages }}</p>
-                <p class="card-text">Rata-rata Rating Pengguna: <span id="user-avg-rating">{% if book.user_avg_rating %}{{ book.user_avg_rating }}{% else %}Belum ada rating.{% endif %}</span></p>
+                <p class="card-text">Rating: {{ book.rating }}</p>
             </div>
         </div>
     </div>
@@ -153,7 +153,7 @@
     function borrowBook(itemId) {
             const date =  document.getElementById("date_ended")
             console.log(date.value)
-            fetch("/myLibrary/borrow-books/" + itemId, {
+            fetch("/borrow-books/" + itemId, {
             method: 'POST',
             body: new FormData(document.querySelector('#form'))
             })

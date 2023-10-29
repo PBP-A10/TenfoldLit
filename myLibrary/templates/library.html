@@ -18,7 +18,7 @@ const borrowedList = document.getElementById("borrowed-list")
 // const favoriteList = document.getElementById("favorite-list")
 
 async function getBooks() {
-    return fetch("/myLibrary/get-borrowed-books/").then((res) => res.json())
+    return fetch("/get-borrowed-books/").then((res) => res.json())
         }
 
 async function getFavorite() {
@@ -104,12 +104,12 @@ function returnBook(bookId){
     const yesRadio = document.getElementById("yes");
     const noRadio = document.getElementById("no");
     if (yesRadio.checked) {
-        fetch("/myLibrary/return-book/"+bookId, {
+        fetch("/return-book/"+bookId, {
         method: "DELETE"
         })
         .then(refreshProducts);
     } else if (noRadio.checked) {
-        fetch("/myLibrary/return-damaged-book/"+bookId, {
+        fetch("/return-damaged-book/"+bookId, {
         method: "DELETE"
         })
         .then(refreshProducts);

@@ -18,7 +18,8 @@
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title"><a href="{% url 'catalog:book_reviews' book.id %}">{{ book.title }}</a></h5>
-                        <button class="btn btn-danger remove-favorite-button" data-bookid="{{ book.id }}">Hapus dari Favorit</button>
+                        <p class="card-text">Rating: {{ book.rating }}</p>
+                        <p class="card-text">{{ book.desc }}</p>
                     </div>
                 </div>
             </div>

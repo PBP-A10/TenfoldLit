@@ -33,7 +33,7 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            response = HttpResponseRedirect(reverse("main:show_home")) 
+            response = HttpResponseRedirect(reverse("catalog:book_list")) 
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:

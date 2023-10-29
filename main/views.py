@@ -75,6 +75,11 @@ def logout(request):
      
     return redirect('index.html')
 
+def navSearchBooks(request):
+    book = Book.objects.all()
+    return redirect('searchAndFilters:genre-grouping')
+
+
 #def Recomendation(request): 
     
 
