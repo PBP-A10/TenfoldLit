@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Home</title>
+
+{% endblock meta %}
+
+{% block content %}
+<button>Catalog</button>
+<a class="btn" href="{% url 'friends:view_friends' %}">Friends</a>
+<a class="btn" href="{% url 'auth_module:register' %}">Register</a>
+{% endblock content %}

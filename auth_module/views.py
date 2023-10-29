@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
+from friends.models import UserConnections
 from auth_module.forms import RegisterUserForm
 
 # Create your views here.
@@ -15,13 +16,12 @@ def register(request):
     if request.method == "POST":
         form = RegisterUserForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user = authenticate(username=username, password=password)
-            login(request, user)
+            user_connections, created = UserConnections.objects.get_or_create(user=user)
             messages.success(request, 'Your account has been successfully created!')
-            return redirect('main:show_main')
+            return redirect('main:homepage')
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -32,9 +32,9 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            response = HttpResponseRedirect(reverse("main:show_main"))
+            response = HttpResponseRedirect(reverse("main:homepage"))
             response.set_cookie('last_login', str(datetime.datetime.now()))
-            return redirect('main:show_main')
+            return response
         else:
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}
@@ -42,4 +42,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('main:show_main')
+    response = HttpResponseRedirect(reverse('auth_module:login'))
+    response.delete_cookie('last_login')
+    return response

@@ -11,9 +11,9 @@ from friends.models import UserConnections
 
 @login_required
 def view_friends(request):
-    user_connections = UserConnections.objects.get(user=request.user)
+    user_connections, created = UserConnections.objects.get_or_create(user=request.user)
     friends = user_connections.get_friends()
-    return render(request, 'friends/friends.html', {'friends': friends, 'current_user': request.user})
+    return render(request, 'friends.html', {'friends': friends, 'current_user': request.user})
 
 @login_required
 def follow_friend(request, friend_id):
@@ -35,11 +35,18 @@ def unfollow_friend(request, friend_id):
 
 @login_required
 def get_friends(request):
-    user_connections = UserConnections.objects.get(user=request.user)
-    friends = user_connections.get_friends()
-    return JsonResponse({'friends': friends, 'user': request.user})
+    user_connections = UserConnections.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', user_connections), content_type='application/json')
 
 @login_required
-def get_users_connections(request):
+def get_all_user_connections(request):
     users_connections = UserConnections.objects.all()
     return HttpResponse(serializers.serialize("json", users_connections), content_type="aplication/json")
+
+def get_user(request, user_id):
+    user = User.objects.filter(pk=user_id)
+    return HttpResponse(serializers.serialize('json', user), content_type='application/json')
+
+def get_user_connections(request, user_id):
+    user = UserConnections.objects.filter(pk=user_id)
+    return HttpResponse(serializers.serialize('json', user), content_type='application/json')

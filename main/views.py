@@ -18,56 +18,17 @@ def get_books(request):
     return HttpResponse(serializers.serialize("json", data),
                          content_type="application/json")
 
-<<<<<<< HEAD
 def get_book_json(request):
     books = Book.objects.all()
     return HttpResponse(serializers.serialize('json', books))
-=======
-def Home(request):
-    return render(request, 'index.html')
 
-def Register(request):
-    if request.method =='POST' :
-        username = request.POST['username']
-        email = request.POST['email']
-        password1 = request.POST['password1']
-        password2 = request.POST['password2']
+@login_required(login_url='/login')
+def homepage(request):
+    if 'last_login' not in request.COOKIES.keys():
+        return redirect('auth_module:login')
 
-        if password1 != password2 :
-            messages.error(request, 'Passwords salah! Coba Lagi!')
-            return redirect('Register')
-        
-        if User.objects.filter(username=username).exists():
-            messages.error(request, 'Username sudah digunakan!')
-            return redirect('Register')
-        
-        if User.objects.filter(email=email).exists():
-            messages.error(requests,'Email sudah digunakan!')
-            return redirect('Register')
-        
-        user = User.objects.create_user(username=username, email=email)
-        user.set_password(password1)
-        user.save()
+    context = {
+        'last_login': request.COOKIES['last_login'],
+    }
 
-        messages.success(request, 'Registrasi berhasil!')
-        return redirect('Register')
-    
-    return render(request, 'Register.html')
-
-def Login(request):
-    if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-
-        user = authenticate(username = username)
-
-def Logout(request):
-    logout(request)
-    messages.sucess(request, 'Berhasil Log Out')
-     
-    return redirect('index.html')
-
-#def Recomendation(request): 
-    
-
->>>>>>> searchAndFilters
+    return render(request, "homepage.html", context)

@@ -13,7 +13,7 @@
     </nav>
 
     <div class="container-fluid">
-        <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="bi bi-search"></i> Search friend</button>
+        <button class="btn btn-outline-success" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" id="open-search-modal"><i class="bi bi-search"></i> Search friend</button>
     </div>
 
     <div class="container-fluid" main-container ></div>
@@ -87,9 +87,13 @@
         var currentUser = {
             username: "{{ current_user.username }}"
         };
+        const csrfToken = '{{ csrf_token }}'
+        const url_get_friends = "{% url 'friends:get_friends' %}"
+        const url_get_all_user_connections = "{% url 'friends:get_all_user_connections' %}"
+        const url_get_user = "{% url 'friends:get_user' user_id=1 %}"
+        const url_follow_friend = "{% url 'friends:follow_friend' friend_id=1 %}"
+        const url_get_user_connections = "{% url 'friends:get_user_connections' user_id=1 %}"
     </script>
     <!-- Include your separate JavaScript file. -->
-    <script src="{% static 'friends.js' %}"></script>
-
-
+    <script src="{% static 'js/friends.js' %}"></script>
 {% endblock %}
