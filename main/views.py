@@ -1,4 +1,12 @@
+from urllib import request
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
+from main.models import Book
+from django.http import JsonResponse
+from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
+from django.db import transaction
 from django.http import HttpResponse
 from django.core import serializers
 from main.models import Book
@@ -11,8 +19,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 import requests
 
+def show_home(request):
+    return render(request, 'home.html')
 
-# Create your views here.
+def start_reading(request):
+    return render(request, 'index.html')
+
+
 def get_books(request):
     data = Book.objects.all()
     return HttpResponse(serializers.serialize("json", data),
