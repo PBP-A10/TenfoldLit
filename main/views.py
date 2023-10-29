@@ -10,6 +10,7 @@ from django.db import transaction
 from django.http import HttpResponse
 from django.core import serializers
 from .models import Book
+from django.db.models import Q
 
 def show_home(request):
     return render(request, 'home.html')
@@ -28,5 +29,8 @@ def get_books(request):
     return HttpResponse(serializers.serialize("json", data),
                          content_type="application/json")
 
-
+def get_filtered_books(request, genre):
+    books = Book.objects.filter(genre__icontains=genre)
+    data = serializers.serialize('json', books)
+    return HttpResponse(data, content_type='application/json')
 
