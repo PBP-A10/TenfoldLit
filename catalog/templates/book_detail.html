@@ -141,11 +141,11 @@
     <script>
     
     const buttonStatus = document.querySelector(".status-buku");
-    if (buttonStatus.getAttribute("id")){
+    if (buttonStatus.getAttribute("id") == "True"){
         buttonStatus.innerHTML = "Buku Rusak";
         buttonStatus.disabled = true;
     } else {
-        buttonStatus.innerHTML = "Buku Rusak";
+        buttonStatus.innerHTML = "Pinjam Buku";
         buttonStatus.disabled = false;
     }
 

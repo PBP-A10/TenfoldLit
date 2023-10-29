@@ -1,20 +1,28 @@
+import datetime
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from auth_module.forms import RegisterUserForm
+from django.urls import reverse
 
 # Create your views here.
 def register(request):
-    form = UserCreationForm()
+    form = RegisterUserForm()
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = RegisterUserForm(request.POST)
         if form.is_valid():
             form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            login(request, user)
             messages.success(request, 'Your account has been successfully created!')
-            return redirect('auth_module:login')
+            return redirect('main:show_main')
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -25,7 +33,9 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('catalog:book_list')
+            response = HttpResponseRedirect(reverse("main:show_home")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
         else:
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}
