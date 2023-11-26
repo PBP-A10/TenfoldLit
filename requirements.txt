@@ -34,7 +34,6 @@ trio==0.22.2
 trio-websocket==0.10.3
 tzdata==2023.3
 urllib3==2.0.4
-vboxapi==1.0
 whitenoise==6.6.0
 wsproto==1.2.0
 xlrd==2.0.1
