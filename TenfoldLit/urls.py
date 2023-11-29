@@ -25,7 +25,7 @@ urlpatterns = [
     path('friends/', include('friends.urls')),
     path('', include('auth_module.urls')),
     path('', include('myLibrary.urls')),
-    path('searchAndFilters/', include('searchAndFilters.urls'))
+    path('searchAndFilters/', include('searchAndFilters.urls')),
     path('profile_user/', include('profile_user.urls')),
     path('', include('catalog.urls')),
 ]
