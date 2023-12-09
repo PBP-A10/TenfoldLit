@@ -26,10 +26,11 @@ def show_library(request):
     return render(request, 'library.html', {'books': borrowed_books})
 
 def get_borrowed_boks(request):
+    # print(request.user.id)
     borrowed_books = BorrowedBooks.objects.filter(user=request.user)
     serialized_books = [
         {
-            'id': book.id,
+            'id': book.pk,
             'title': book.book.title,
             'date_ended': book.date_ended,  # Format the date as a string
             'book_image': book.book.img
@@ -60,32 +61,32 @@ def borrow_books(request, book_id):
 
 @csrf_exempt
 def return_book(request, book_id):
-    if request.method == 'DELETE':
-            book = BorrowedBooks.objects.get(pk=book_id)
-            book.delete()
-            return HttpResponse("Deleted", status=204)
+    if request.method == 'POST':
+        book = BorrowedBooks.objects.get(pk=book_id)
+        book.delete()
+        return JsonResponse({"message": "Deleted"}, status=200)
 
-    return HttpResponse("Invalid request method", status=405)
+    # return HttpResponse("Invalid request method", status=405)
 
 @csrf_exempt    
 def return_damaged_book(request, book_id):
-    if request.method == 'DELETE':
-            borrowedBook = BorrowedBooks.objects.get(pk=book_id)
-            book = Book.objects.get(pk=book_id)
-            borrowedBook.delete()
+    if request.method == 'POST':
+        borrowedBook = BorrowedBooks.objects.get(pk=book_id)
+        book = Book.objects.get(pk=book_id)
+        borrowedBook.delete()
 
-            book.status = True
-            book.save()
+        book.status = True
+        book.save()
 
-            return HttpResponse("Deleted", status=204)
+        return JsonResponse({"message": "Deleted"}, status=200)
 
-    return HttpResponse("Invalid request method", status=405)
-    context = {}
-    return render(request, 'borrow_books.html', context)
+    # return HttpResponse("Invalid request method", status=405)
+    # context = {}
+    # return render(request, 'borrow_books.html', context)
 
-@login_required(login_url='/login')
-def get_borrowed_books_user(request, user_id):
-    borrowed_books = BorrowedBooks.objects.filter(pk=user_id)
+
+def get_borrowed_books_user(request):
+    borrowed_books = BorrowedBooks.objects.filter(user = request.user)
     return HttpResponse(serializers.serialize("json", borrowed_books), content_type="application/json")
 
 @login_required(login_url='/login')
