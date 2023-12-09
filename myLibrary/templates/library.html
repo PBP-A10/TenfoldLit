@@ -103,14 +103,14 @@ var damaged;
 function returnBook(bookId){
     const yesRadio = document.getElementById("yes");
     const noRadio = document.getElementById("no");
-    if (yesRadio.checked) {
+    if (!yesRadio.checked) {
         fetch("/return-book/"+bookId, {
-        method: "DELETE"
+        method: "POST"
         })
         .then(refreshProducts);
-    } else if (noRadio.checked) {
+    } else if (!noRadio.checked) {  
         fetch("/return-damaged-book/"+bookId, {
-        method: "DELETE"
+        method: "POST"
         })
         .then(refreshProducts);
     }
