@@ -11,4 +11,8 @@ urlpatterns = [
     path('add_review/<int:book_id>/', views.add_review, name='add_review'),
     path('get_reviews/<int:book_id>/', views.get_reviews, name='get_reviews'),
     path('mark_as_favorite/<int:book_id>/', views.mark_as_favorite, name='mark_as_favorite'),
+    path('xml/', views.show_xml, name='show_xml'),
+    path('json/', views.show_json, name='show_json'), 
+    path('xml/<int:id>/', views.show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', views.show_json_by_id, name='show_json_by_id'),
 ]

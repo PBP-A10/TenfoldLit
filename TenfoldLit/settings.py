@@ -36,7 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://*.stndar.dev"] 
+CSRF_TRUSTED_ORIGINS = ["https://*.stndar.dev","http://localhost:60663",] 
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
