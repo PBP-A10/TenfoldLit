@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render
 
 # Create your views here.
@@ -56,6 +57,28 @@ def borrow_books(request, book_id):
         borrowed_book.save()
 
         return HttpResponse(b"berhasil", status=201)
+
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def borrow_books_flutter(request, book_id):
+    book = Book.objects.get(pk=book_id)
+    user = request.user
+    
+    if request.method == 'POST':
+        if BorrowedBooks.objects.filter(user=user, book=book).exists():
+            return JsonResponse({"status": "failed"}, status=200)
+
+        # user = request.user
+        date_borrowed = timezone.now()
+
+        data = json.loads(request.body)
+        date_ended = data.get("date_ended")
+        
+        borrowed_book = BorrowedBooks(user=user, book=book, date_borrowed=date_borrowed, date_ended=date_ended)
+        borrowed_book.save()
+
+        return JsonResponse({"status": "success"}, status=200)
 
     return HttpResponseNotFound()
 
