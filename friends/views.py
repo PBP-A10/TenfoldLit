@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from catalog.models import UserFavorite
+from myLibrary.models import BorrowedBooks
 from .models import UserConnections
 from django.contrib.auth.models import User
 from django.core import serializers
@@ -158,3 +160,31 @@ def get_all_user_connections_object(request):
     ]
 
     return JsonResponse(user_list, safe=False)
+
+def get_borrowed_books_user(request, user_id):
+    current_user = User.objects.get(pk=user_id)
+    borrowed_books = BorrowedBooks.objects.filter(user=current_user)
+    serialized_books = [
+        {
+            'id': book.pk,
+            'title': book.book.title,
+            'date_ended': book.date_ended,  # Format the date as a string
+            'book_image': book.book.img
+        }
+        for book in borrowed_books
+    ]
+    return JsonResponse(serialized_books, safe=False)
+
+def get_favorite_books_user(request, user_id):
+    current_user = User.objects.get(pk=user_id)
+    favorite_books = UserFavorite.objects.filter(user=current_user)
+    serialized_books = [
+        {
+            'id': book.pk,
+            'title': book.book.title,
+            'date_ended': book.date_ended,  # Format the date as a string
+            'book_image': book.book.img
+        }
+        for book in favorite_books
+    ]
+    return JsonResponse(serialized_books, safe=False)
