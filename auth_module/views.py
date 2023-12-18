@@ -15,6 +15,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 
+from profile_user.models import UserProfile
+
 # Create your views here.
 def register(request):
     form = RegisterUserForm()
@@ -26,6 +28,7 @@ def register(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             user_connections, created = UserConnections.objects.get_or_create(user=user)
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
             messages.success(request, 'Your account has been successfully created!')
             return redirect('main:homepage')
             

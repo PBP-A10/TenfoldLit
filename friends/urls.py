@@ -1,5 +1,7 @@
 from django.urls import path
-from friends.views import view_friends, follow_friend, unfollow_friend, get_friends, get_all_user_connections, get_user, get_user_connections, get_friends_user_object, get_all_users,get_current_user
+from friends.views import view_friends, follow_friend, unfollow_friend, get_friends, get_all_user_connections, get_user, \
+                        get_user_connections, get_friends_user_object, get_all_users,get_current_user, get_all_user_connections_object, \
+                        follow_friend_flutter, unfollow_friend_flutter, get_favorite_books_user, get_borrowed_books_user, get_user_profile
 
 app_name = 'friends'
 
@@ -14,4 +16,10 @@ urlpatterns = [
     path('get_friends_user_objects/<int:user_connection_id>', get_friends_user_object, name='get_friends_user_objects'),
     path('get_all_users/', get_all_users, name='get_all_users'),
     path('get_current_user/', get_current_user, name='get_current_user'),
+    path('get_all_user_connections_object/', get_all_user_connections_object, name='get_all_user_connections_object'),
+    path('follow_friend_flutter/<int:friend_id>/', follow_friend_flutter, name='follow_friend_flutter'),
+    path('unfollow_friend_flutter/<int:friend_id>/', unfollow_friend_flutter, name='unfollow_friend_flutter'),
+    path('get_favorite_books_user/<int:user_id>/', get_favorite_books_user, name='get_favorite_books_user'),
+    path('get_borrowed_books_user/<int:user_id>/', get_borrowed_books_user, name='get_borrowed_books_user'),
+    path('get_user_profile/<int:user_id>/', get_user_profile, name='get_user_profile'),
 ]
