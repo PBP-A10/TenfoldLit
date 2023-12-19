@@ -36,7 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-CSRF_TRUSTED_ORIGINS = ["https://*.stndar.dev","http://localhost:60663",] 
+CSRF_TRUSTED_ORIGINS = ["https://*.stndar.dev","http://localhost:60663","https://tenfoldlit-a10-tk.pbp.cs.ui.ac.id",] 
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
