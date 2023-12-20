@@ -49,6 +49,10 @@ def ratings(request):
     books = Book.objects.all().order_by('-rating')
     return render(request, 'ratings.html', {'books': books})
 
+def ratings_json(request):
+    books = Book.objects.all().order_by('-rating')
+    return HttpResponse(serializers.serialize("json", books), content_type = "application/json")
+
 def calculate_user_avg_rating(book):
     user_reviews = UserReview.objects.filter(book=book)
     total_reviews = user_reviews.count()
