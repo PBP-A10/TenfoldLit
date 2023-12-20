@@ -42,7 +42,8 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            
+            user_connections, created = UserConnections.objects.get_or_create(user=user)
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
             response = HttpResponseRedirect(reverse("catalog:book_list")) 
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
