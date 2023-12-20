@@ -46,7 +46,7 @@ def book_reviews(request, book_id):
     return render(request, 'book_detail.html', {'book': book, 'reviews': reviews})
 
 def ratings(request):
-    books = Book.objects.all().order_by('-user_avg_rating')
+    books = Book.objects.all().order_by('-rating')
     return render(request, 'ratings.html', {'books': books})
 
 def calculate_user_avg_rating(book):
